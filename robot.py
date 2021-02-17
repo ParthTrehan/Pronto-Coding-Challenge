@@ -1,9 +1,25 @@
 import argparse
 
+
 def get_parser():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-c','--commands', type=str, required=True)
+    prog = """robot.py"""
+
+    description = """
+    description:
+    This is a simple program that takes a string
+    of commands as inputs and produces the robot's 
+    distance from it's starting point.
+    """
+    commands_help = """
+    a string of comma-separated commands eg: "F1,R1,B2,L1,B3"
+    """
+    parser = argparse.ArgumentParser(
+        prog=prog,
+        description=description)
+    parser.add_argument('-c', '--commands', type=str,
+                        required=True, help=commands_help)
     return parser
+
 
 if __name__ == '__main__':
     args = get_parser().parse_args()
