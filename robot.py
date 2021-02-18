@@ -33,9 +33,11 @@ def get_parser():
     parser = argparse.ArgumentParser(
         prog=prog,
         description=description)
+    parser.add_argument('--verbose', '-v',
+                        action='store_true', default=False,
+                        help='display more information about the robot traversal')
     parser.add_argument('--commands', '-c', type=str,
                         required=True, help=commands_help)
-    parser.add_argument('--verbose', '-v', action='store_true', default=False)
     return parser
 
 
@@ -83,13 +85,15 @@ def move_robot(command, robot):
 
 def rotate_robot(command, robot):
     direction_arr = ['N', 'E', 'S', 'W']
-    direction_units = int(command[1]) % 4
+    direction_units = int(command[1])
     if command[0] == 'L':
-        robot.direction = direction_arr[direction_arr.index(
-            robot.direction)-direction_units]
+        direction_index = (direction_arr.index(
+            robot.direction) - direction_units) % 4
+        robot.direction = direction_arr[direction_index]
     else:
-        robot.direction = direction_arr[direction_arr.index(
-            robot.direction)+direction_units]
+        direction_index = (direction_arr.index(
+            robot.direction) + direction_units) % 4
+        robot.direction = direction_arr[direction_index]
     return robot
 
 
@@ -112,6 +116,6 @@ if __name__ == '__main__':
     verboseprint('current direction - ', robot.direction)
     verboseprint('current position  - ', (robot.current_x, robot.current_y))
     verboseprint('distance to start - ', distance)
-    verboseprint('time takes', end)
+    verboseprint('time taken - ', end, 'seconds')
 
     print(distance)
