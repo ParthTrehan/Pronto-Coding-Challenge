@@ -105,19 +105,20 @@ def calculate_distance(current_position, start_position):
 
 if __name__ == '__main__':
     args = get_parser().parse_args()
-    verboseprint = print if args.verbose else lambda *a, **k: None
+    verbose_print = print if args.verbose else lambda *a, **k: None
+
     start = time.time()
     robot = Robot(current_position=(0, 0), direction='N')
     commands_validator(args.commands)
-    robot = traverse_path(robot, args.commands)
+    robot = traverse_path(robot=robot, commands=args.commands)
     distance = calculate_distance(
         current_position=(robot.current_x, robot.current_y),
         start_position=(robot.start_x, robot.start_y))
     end = time.time() - start
 
-    verboseprint('current direction - ', robot.direction)
-    verboseprint('current position  - ', (robot.current_x, robot.current_y))
-    verboseprint('distance to start - ', distance)
-    verboseprint('time taken - ', end, 'seconds')
+    verbose_print('current direction - ', robot.direction)
+    verbose_print('current position  - ', (robot.current_x, robot.current_y))
+    verbose_print('distance to start - ', distance)
+    verbose_print('time taken - ', end, 'seconds')
 
     print(distance)
