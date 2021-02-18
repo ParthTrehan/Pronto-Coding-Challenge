@@ -22,16 +22,18 @@ def get_parser():
     return parser
 
 
-def return_error(err):
+def error(err):
     print('error: ' + err)
     exit(0)
 
 
 def commands_validator(commands):
-    return re.match(pattern="^([A-Z][1-9])(,[A-Z][1-9])*$", string=commands)
+    if not(re.match(pattern="^([F|B|R|L][1-9])(,[F|B|R|L][1-9])*$", string=commands)):
+        error('Invalid input commands')
 
 
 if __name__ == '__main__':
     args = get_parser().parse_args()
-    if not(commands_validator(args.commands)):
-        return_error('Invalid input commands')
+    commands_validator(args.commands)
+    
+    print(args.commands)
