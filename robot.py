@@ -97,9 +97,10 @@ def rotate_robot(command, robot):
     return robot
 
 
-def calculate_distance(current_position):
-    current_pos_x, current_pos_y = current_position
-    return (abs(current_pos_x) + abs(current_pos_y))
+def calculate_distance(current_position, start_position):
+    current_x, current_y = current_position
+    start_x, start_y = start_position
+    return (abs(current_x-start_x) + abs(current_y-start_y))
 
 
 if __name__ == '__main__':
@@ -110,7 +111,8 @@ if __name__ == '__main__':
     commands_validator(args.commands)
     robot = traverse_path(robot, args.commands)
     distance = calculate_distance(
-        current_position=(robot.current_x, robot.current_y))
+        current_position=(robot.current_x, robot.current_y),
+        start_position=(robot.start_x, robot.start_y))
     end = time.time() - start
 
     verboseprint('current direction - ', robot.direction)
