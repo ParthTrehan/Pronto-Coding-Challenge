@@ -17,14 +17,20 @@ def get_parser():
     parser = argparse.ArgumentParser(
         prog=prog,
         description=description)
-    parser.add_argument('-c', '--commands', type=str,
+    parser.add_argument('--commands', '-c', type=str,
                         required=True, help=commands_help)
+    parser.add_argument('--verbose', '-v', action='store_true', default=False)
     return parser
 
 
 def error(err):
     print('error: ' + err)
     exit(0)
+
+
+def logger(verbose=False, *argv):
+    if verbose:
+        print(*argv)
 
 
 def commands_validator(commands):
@@ -87,9 +93,14 @@ def calculate_distance(current_position):
 
 if __name__ == '__main__':
     args = get_parser().parse_args()
+    verboseprint = print if args.verbose else lambda *a, **k: None
+
     commands_validator(args.commands)
     current_dir, current_position = traverse_path(args.commands)
     distance = calculate_distance(current_position)
-    print('current direction - ', current_dir)
-    print('current position  - ', current_position)
-    print('distance to start - ', distance)
+
+    verboseprint('current direction - ', current_dir)
+    verboseprint('current position  - ', current_position)
+    verboseprint('distance to start - ', distance)
+
+    print(distance)
