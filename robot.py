@@ -8,7 +8,7 @@ def get_parser():
     description = """
     description:
     This is a simple program that takes a string
-    of commands as inputs and produces the robot's 
+    of commands as inputs and produces the robot's
     distance from it's starting point.
     """
     commands_help = """
@@ -32,8 +32,64 @@ def commands_validator(commands):
         error('Invalid input commands')
 
 
+def traverse_path(commands):
+    current_pos_x = 0
+    current_pos_y = 0
+    current_dir = 'N'
+    commands_arr = commands.split(',')
+    for command in commands_arr:
+        if command[0] in ['F', 'B']:
+            (current_pos_x, current_pos_y) = move_robot(
+                command, current_pos_x, current_pos_y, current_dir)
+        else:
+            current_dir = rotate_robot(command, current_dir)
+    return(current_dir, (current_pos_x, current_pos_y))
+
+
+def move_robot(command, current_pos_x, current_pos_y, current_dir):
+    if command[0] == 'F':
+        if current_dir == 'N':
+            current_pos_y += int(command[1])
+        elif current_dir == 'E':
+            current_pos_x += int(command[1])
+        elif current_dir == 'S':
+            current_pos_y -= int(command[1])
+        else:
+            current_pos_x -= int(command[1])
+    else:
+        if current_dir == 'N':
+            current_pos_y -= int(command[1])
+        elif current_dir == 'E':
+            current_pos_x -= int(command[1])
+        elif current_dir == 'S':
+            current_pos_y += int(command[1])
+        else:
+            current_pos_x += int(command[1])
+    return (current_pos_x, current_pos_y)
+
+
+def rotate_robot(command, current_dir):
+    direction_arr = ['N', 'E', 'S', 'W']
+    direction_units = int(command[1]) % 4
+    if command[0] == 'L':
+        current_dir = direction_arr[direction_arr.index(
+            current_dir)-direction_units]
+    else:
+        current_dir = direction_arr[direction_arr.index(
+            current_dir)+direction_units]
+    return current_dir
+
+
+def calculate_distance(current_position):
+    current_pos_x, current_pos_y = current_position
+    return (abs(current_pos_x) + abs(current_pos_y))
+
+
 if __name__ == '__main__':
     args = get_parser().parse_args()
     commands_validator(args.commands)
-    
-    print(args.commands)
+    current_dir, current_position = traverse_path(args.commands)
+    distance = calculate_distance(current_position)
+    print('current direction - ', current_dir)
+    print('current position  - ', current_position)
+    print('distance to start - ', distance)
