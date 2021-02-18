@@ -1,5 +1,21 @@
 import argparse
 import re
+import time
+
+
+class Robot:
+    def __init__(self, current_position, direction, start_position=None):
+        (current_x, current_y) = current_position
+        self.current_x = current_x
+        self.current_y = current_y
+        self.direction = direction
+        if start_position == None:
+            self.start_x = self.current_x
+            self.start_y = self.current_y
+        else:
+            (start_x, start_y) = start_position
+            self.start_x = start_x
+            self.start_y = start_y
 
 
 def get_parser():
@@ -28,62 +44,53 @@ def error(err):
     exit(0)
 
 
-def logger(verbose=False, *argv):
-    if verbose:
-        print(*argv)
-
-
 def commands_validator(commands):
     if not(re.match(pattern="^([F|B|R|L][1-9])(,[F|B|R|L][1-9])*$", string=commands)):
         error('Invalid input commands')
 
 
-def traverse_path(commands):
-    current_pos_x = 0
-    current_pos_y = 0
-    current_dir = 'N'
+def traverse_path(robot, commands):
     commands_arr = commands.split(',')
     for command in commands_arr:
         if command[0] in ['F', 'B']:
-            (current_pos_x, current_pos_y) = move_robot(
-                command, current_pos_x, current_pos_y, current_dir)
+            robot = move_robot(command, robot)
         else:
-            current_dir = rotate_robot(command, current_dir)
-    return(current_dir, (current_pos_x, current_pos_y))
+            robot = rotate_robot(command, robot)
+    return(robot)
 
 
-def move_robot(command, current_pos_x, current_pos_y, current_dir):
+def move_robot(command, robot):
     if command[0] == 'F':
-        if current_dir == 'N':
-            current_pos_y += int(command[1])
-        elif current_dir == 'E':
-            current_pos_x += int(command[1])
-        elif current_dir == 'S':
-            current_pos_y -= int(command[1])
+        if robot.direction == 'N':
+            robot.current_y += int(command[1])
+        elif robot.direction == 'E':
+            robot.current_x += int(command[1])
+        elif robot.direction == 'S':
+            robot.current_y -= int(command[1])
         else:
-            current_pos_x -= int(command[1])
+            robot.current_x -= int(command[1])
     else:
-        if current_dir == 'N':
-            current_pos_y -= int(command[1])
-        elif current_dir == 'E':
-            current_pos_x -= int(command[1])
-        elif current_dir == 'S':
-            current_pos_y += int(command[1])
+        if robot.direction == 'N':
+            robot.current_y -= int(command[1])
+        elif robot.direction == 'E':
+            robot.current_x -= int(command[1])
+        elif robot.direction == 'S':
+            robot.current_y += int(command[1])
         else:
-            current_pos_x += int(command[1])
-    return (current_pos_x, current_pos_y)
+            robot.current_x += int(command[1])
+    return (robot)
 
 
-def rotate_robot(command, current_dir):
+def rotate_robot(command, robot):
     direction_arr = ['N', 'E', 'S', 'W']
     direction_units = int(command[1]) % 4
     if command[0] == 'L':
-        current_dir = direction_arr[direction_arr.index(
-            current_dir)-direction_units]
+        robot.direction = direction_arr[direction_arr.index(
+            robot.direction)-direction_units]
     else:
-        current_dir = direction_arr[direction_arr.index(
-            current_dir)+direction_units]
-    return current_dir
+        robot.direction = direction_arr[direction_arr.index(
+            robot.direction)+direction_units]
+    return robot
 
 
 def calculate_distance(current_position):
@@ -94,13 +101,17 @@ def calculate_distance(current_position):
 if __name__ == '__main__':
     args = get_parser().parse_args()
     verboseprint = print if args.verbose else lambda *a, **k: None
-
+    start = time.time()
+    robot = Robot(current_position=(0, 0), direction='N')
     commands_validator(args.commands)
-    current_dir, current_position = traverse_path(args.commands)
-    distance = calculate_distance(current_position)
+    robot = traverse_path(robot, args.commands)
+    distance = calculate_distance(
+        current_position=(robot.current_x, robot.current_y))
+    end = time.time() - start
 
-    verboseprint('current direction - ', current_dir)
-    verboseprint('current position  - ', current_position)
+    verboseprint('current direction - ', robot.direction)
+    verboseprint('current position  - ', (robot.current_x, robot.current_y))
     verboseprint('distance to start - ', distance)
+    verboseprint('time takes', end)
 
     print(distance)
