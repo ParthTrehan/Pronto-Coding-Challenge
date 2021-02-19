@@ -10,7 +10,15 @@
 
 ## Description
 
-This is a simple program that traverses a robot from a starting point based on a series of commands. After the traversal the program outputs the robot's distance from it's starting point. This distance is the minimum amount of units the robot will need to traverse in order to get back to it's starting point. The robot can only turn 90 degrees at a time and can go in north, south, east, west directions.
+This is a simple CLI application that traverses a robot from a starting point based on a series of commands. After the traversal the program outputs the robot's distance from it's starting point. This distance is the minimum amount of units the robot will need to traverse in order to get back to it's starting point. The robot can only turn 90 degrees at a time and can go in north, south, east, west directions.
+
+The robot that can receive commands in order to move.  These commands will tell the robot to go forwards or backwards, and turn left or right.  These commands will be  in the format \<command>\<number>.  For example 'L1' means 'turn left by 90 degrees once'.  'B2' would mean go backwards 2 units.
+
+### Available commands:
+* `F` - move forward 1 unit
+* `B` - move backward 1 unit
+* `R` - turn right 90 degrees
+* `L` - turn left 90 degrees
 
 ## Examples
 
@@ -63,4 +71,4 @@ python robot.py --commands "F1,R1,B2,L1,B3"
 | :------------------------ |:-------------:| :-------------|
 | -h, --help       	        |	-           | Shows the CLI help message and exits
 | -v  --verbose             | False         | Displays more information about the robot traversal
-| -c -–commands 	        | -	            | This is a required argument that takes a string of comma-separated commands. For example: "F1,R1,B2,L1,B3"
+| -c -–commands 	        | -	            | This is a required argument that 					takes a string of comma-separated commands. For example: "F1,R1,B2,L1,B3"
