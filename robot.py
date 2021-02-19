@@ -105,9 +105,9 @@ if __name__ == '__main__':
     distance = robot.calculate_distance()
     end = time.time() - start
 
-    verbose_print('current direction - ', robot.direction)
-    verbose_print('current position  - ', (robot.current_x, robot.current_y))
-    verbose_print('distance to start - ', distance)
-    verbose_print('time taken - ', end, 'seconds')
+    verbose_print('Current direction - ', robot.direction)
+    verbose_print('Current position  - ', (robot.current_x, robot.current_y))
+    verbose_print('Distance to start - ', distance)
+    verbose_print('Time taken - ', end, 'seconds')
 
     print(distance)
