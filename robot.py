@@ -6,7 +6,13 @@ import sys
 
 class Robot:
     '''
-'''
+    This is the main Robot class that covers all the robot related 
+    variables, such as robot's current_position and direction, and 
+    methods such as move and rotate. This class also includes the 
+    function for calculating the distance of the robot from the 
+    start point.
+    '''
+
     def __init__(self, current_position, direction, start_position=None):
         (current_x, current_y) = current_position
         self.current_x = current_x
@@ -22,7 +28,10 @@ class Robot:
 
     def traverse(self, commands):
         '''
-    '''
+        This function is the head function for traversing the robot.
+        This function takes string commands as input and traverses
+        the robot.
+        '''
         commands_arr = commands.split(',')
         for command in commands_arr:
             if command[0] in ['F', 'B']:
@@ -32,7 +41,10 @@ class Robot:
 
     def move(self, command):
         '''
-    '''
+        This functions moves th robot based on the single command 
+        (for example F3 or B1). The moment of the robot is calculated 
+        based on the current robot's direction.
+        '''
         if command[0] == 'F':
             if self.direction == 'N':
                 self.current_y += int(command[1])
@@ -54,7 +66,10 @@ class Robot:
 
     def rotate(self, command):
         '''
-    '''
+        This rotates the robot based on the single command (for
+        example L3 or R1). The robot is rotated based on the current
+        robot's direction.
+        '''
         direction_arr = ['N', 'E', 'S', 'W']
         direction_units = int(command[1])
         if command[0] == 'L':
@@ -67,6 +82,11 @@ class Robot:
             self.direction = direction_arr[direction_index]
 
     def calculate_distance(self):
+        '''
+        This function calculates the robot's distance form the starting
+        point of the robot. This is implemented by calculating manhattan
+        distance between the two points.
+        '''
         return (abs(self.current_x-self.start_x)
                 + abs(self.current_y-self.start_y))
 
@@ -74,7 +94,7 @@ class Robot:
 def get_parser():
     prog = """robot.py"""
 
-    description = """\
+    description = """
                         DESCRIPTION:
     This is a simple program that takes a string of commands 
     as inputs in order to move a robot. These commands will 
@@ -111,13 +131,19 @@ def error(err):
 
 def commands_validator(commands):
     '''
-'''
+    This function validates the command line arguments. This functions
+    constraints the user to use available arguments and units.
+    '''
     if not(re.match(pattern="^([F|B|R|L][1-9])(,[F|B|R|L][1-9])*$",
                     string=commands)):
         error('Invalid input commands')
 
 
-if __name__ == '__main__':
+def main():
+    '''
+    This is the main function that is used to parse the command from the
+    CLI arguments and traverse the robot.
+    '''
     args = get_parser().parse_args()
     verbose_print = print if args.verbose else lambda *a, **k: None
 
@@ -137,3 +163,6 @@ if __name__ == '__main__':
 
     sys.stdout.write(str(distance))
     sys.exit(1)
+
+if __name__ == '__main__':
+    main()
