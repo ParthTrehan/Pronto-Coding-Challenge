@@ -5,6 +5,8 @@ import sys
 
 
 class Robot:
+    '''
+'''
     def __init__(self, current_position, direction, start_position=None):
         (current_x, current_y) = current_position
         self.current_x = current_x
@@ -19,6 +21,8 @@ class Robot:
             self.start_y = start_y
 
     def traverse(self, commands):
+        '''
+    '''
         commands_arr = commands.split(',')
         for command in commands_arr:
             if command[0] in ['F', 'B']:
@@ -27,6 +31,8 @@ class Robot:
                 self.rotate(command)
 
     def move(self, command):
+        '''
+    '''
         if command[0] == 'F':
             if self.direction == 'N':
                 self.current_y += int(command[1])
@@ -47,6 +53,8 @@ class Robot:
                 self.current_x += int(command[1])
 
     def rotate(self, command):
+        '''
+    '''
         direction_arr = ['N', 'E', 'S', 'W']
         direction_units = int(command[1])
         if command[0] == 'L':
@@ -102,6 +110,8 @@ def error(err):
 
 
 def commands_validator(commands):
+    '''
+'''
     if not(re.match(pattern="^([F|B|R|L][1-9])(,[F|B|R|L][1-9])*$",
                     string=commands)):
         error('Invalid input commands')

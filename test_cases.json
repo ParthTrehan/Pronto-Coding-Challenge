@@ -13,6 +13,27 @@
             "output": "",
             "error": "error: Invalid input commands",
             "returnCode": 0
+        },
+        {
+            "id": "3",
+            "command": "F1,R1,B2,L1,B11",
+            "output": "",
+            "error": "error: Invalid input commands",
+            "returnCode": 0
+        },
+        {
+            "id": "4",
+            "command": "F1,R1,B2,L1,R11",
+            "output": "",
+            "error": "error: Invalid input commands",
+            "returnCode": 0
+        },
+        {
+            "id": "5",
+            "command": "F1,B1,B2,R3,L1,B2,L7,F3,R2,B1",
+            "output": "4",
+            "error": "",
+            "returnCode": 1
         }
     ]
 }
