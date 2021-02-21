@@ -82,5 +82,6 @@ There are some assumptions in building the project:
  1. The robot can only move in four directions (North, East, South, West).
  2. The robot can only move 1-9 units in a given command. 
  3. Robot's direction is not considered during calculation of the robot's distance from the starting point. For example if the robot is given a command "F3,R1,F2", the robot will be facing east after the robot has traversed. However, to go back to the start location, the robot has to turn to south direction to go back to the start location. This phenomenon is not incorporated in the distance calulation.
+ 
 
 ### Testing
