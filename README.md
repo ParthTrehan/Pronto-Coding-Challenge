@@ -35,14 +35,18 @@ python robot.py --commands "F1,R1,B2,L1,B3"
 python robot.py --verbose --commands "F1,R1,B2,L1,B3"
 
 # Output would be
+##################### Verbose ######################
 Current direction -  N
 Current position  -  (-2, -2)
 Distance to start -  4
-Time taken -  0.00022101402282714844 seconds
+Time taken -  0.00020885467529296875 seconds
+#####################################################
+4
 ```
 
 ## Files
 - [robot.py](https://github.com/ParthTrehan/Pronto-Coding-Challenge/blob/master/robot.py "robot.py") - This is the main python script that implements the CLI application for robot traversal and distance calculation.
+- [test.py](https://github.com/ParthTrehan/Pronto-Coding-Challenge/blob/master/test.py "test.py") - This is the testing python script that can be used to test the CLI application using the test cases provided in [test_cases.json](https://github.com/ParthTrehan/Pronto-Coding-Challenge/blob/master/test_cases.json "test_cases.json"). Some samples are already provided in the file.
 
 ## Installation
 
@@ -62,11 +66,11 @@ python robot.py --commands "F1,R1,B2,L1,B3"
 
 ## <a id="cli_arguments"></a>CLI Arguments
 
-| Argument                      | Default       | Description   |	
-| :---------------------------- |:-------------:| :-------------|
-| -h, --help       	            |	-           | Shows the CLI help message and exits
-| -v  --verbose                 | False         | Displays more information about the robot traversal
-| -c -–commands 	            | -	            | This is a required argument that takes a string of comma-separated commands. For example: "F1,R1,B2,L1,B3"
+| Argument                  | Default       | Description   |	
+| :------------------------ |:-------------:| :-------------|
+| -h, --help       	        |	-           | Shows the CLI help message and exits
+| -v  --verbose             | False         | Displays more information about the robot traversal
+| -c --commands 	        | -	            | This is a required argument that 					takes a string of comma-separated commands. For example: "F1,R1,B2,L1,B3"
 
 ## <a id="build"></a>Build Process
 
@@ -82,6 +86,26 @@ There are some assumptions in building the project:
  1. The robot can only move in four directions (North, East, South, West).
  2. The robot can only move 1-9 units in a given command. 
  3. Robot's direction is not considered during calculation of the robot's distance from the starting point. For example if the robot is given a command "F3,R1,F2", the robot will be facing east after the robot has traversed. However, to go back to the start location, the robot has to turn to south direction to go back to the start location. This phenomenon is not incorporated in the distance calulation.
- 
 
 ### Testing
+For testing the CLI application a testing python script has been developed using [Pytest (6.2.2)](https://pytest.org/) package. To run this script you would require pytest and you can execute the test using the following command.
+
+```bash
+#testing!
+pytest test.py -s
+
+# Output would be like
+================================== test session starts ==================================
+platform darwin -- Python 3.7.6, pytest-6.2.2, py-1.9.0, pluggy-0.13.1
+rootdir: /Users/parthtrehan/Desktop/Personal Works/Resume/Resume for companies/Pronto Coding Challenge
+collected 1 item                                                                        
+
+test.py 
+  test case 1 PASSED
+  test case 2 PASSED
+  test case 3 PASSED
+  test case 4 PASSED
+  test case 5 PASSED.
+
+=================================== 1 passed in 0.23s ===================================
+```
