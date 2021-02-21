@@ -125,7 +125,7 @@ To add more test cases, it can be done easily by just appending the [test_cases.
 	"returnCode": 1
 }
 ```
-> To add a wrong command test cases, just change the command and set the returnCode to 0 as given below.
+> To add a wrong command test cases, just change the command, add the relavant error and set the returnCode to 0 as given below.
 
 ```json
 {
