@@ -31,6 +31,7 @@ class Robot:
         This function is the head function for traversing the robot.
         This function takes string commands as input and traverses
         the robot.
+        Input: "F1,R1,B2,L1,B3"
         '''
         commands_arr = commands.split(',')
         for command in commands_arr:
@@ -105,8 +106,7 @@ def get_parser():
     move in 4 directions (North, East, South, West). For 
     simplicity of the program, the robot can only move in 
     1-9 units in a single command. Please refer README.md
-    for more information on available commands, arguments
-    and design process.
+    for more information on available commands & arguments.
 
     """
     commands_help = """
@@ -133,6 +133,7 @@ def commands_validator(commands):
     '''
     This function validates the command line arguments. This functions
     constraints the user to use available arguments and units.
+    Input: "F1,R1,B2,L1,B3"
     '''
     if not(re.match(pattern="^([F|B|R|L][1-9])(,[F|B|R|L][1-9])*$",
                     string=commands)):

@@ -84,6 +84,8 @@ This project is build keeping simplicity and extensibility in mind. A robot clas
  1. **Robot Intialization**: To initialize the robot starting position and direction, it is just required to set values when declaring the robot object. This class can be extended to include more robot's features such as actuators and sensors.
  2. **Path finiding algorithm**: calculate_distance() function calculates the robot's distance the start position and this is implemented by calculating manhattan distance. However, this function can also be extended to add more complex path finding algorithms, such as dijkstra and A*, which can include path costs.
 
+For specific function description and logic please refer to [robot.py](https://github.com/ParthTrehan/Pronto-Coding-Challenge/blob/master/robot.py "robot.py").
+
 ### Assumptions
 There are some assumptions in building the project:
 
