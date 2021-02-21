@@ -8,6 +8,10 @@ tests_file = "test_cases.json"
 
 
 def capture(command):
+    '''
+    This function process and runs the CLI command and captures
+    the result from it.
+    '''
     result = subprocess.run(command,
                             capture_output=True,
                             text=True)
@@ -15,6 +19,11 @@ def capture(command):
 
 
 def test_cli():
+    '''
+    This is the testing function that is used by pytest library and 
+    this function executes the test cases from the test_cases.json 
+    file.
+    '''
     command = ["python", script_name, "-c"]
     test_count = 0
     with open(tests_file) as json_file:

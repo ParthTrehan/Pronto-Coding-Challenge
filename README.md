@@ -50,21 +50,25 @@ Time taken -  0.00020885467529296875 seconds
 
 ## Installation
 
-- All the `code` is available in this repo to get started
+All the `code` is available in this repo to get started
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/ParthTrehan/Pronto-Coding-Challenge.git`
+- Clone this repo to your local machine using the following command
+```bash
+git clone https://github.com/ParthTrehan/Pronto-Coding-Challenge.git
+```
 
 ### Setup
 
-> You would require Python 3 to run "robot.py". There are no external libraries required to run this project. 
+> You would require Python 3 to run [robot.py](https://github.com/ParthTrehan/Pronto-Coding-Challenge/blob/master/robot.py "robot.py") and Pytest 6.2.2 for running the [test.py](https://github.com/ParthTrehan/Pronto-Coding-Challenge/blob/master/test.py "test.py").
 ```bash
 #code away!
 python robot.py --commands "F1,R1,B2,L1,B3"
 ```
 
 ## <a id="cli_arguments"></a>CLI Arguments
+The following CLI arguments to run the python script as shown in the above example.
 
 | Argument                  | Default       | Description   |	
 | :------------------------ |:-------------:| :-------------|
@@ -85,7 +89,7 @@ There are some assumptions in building the project:
 
  1. The robot can only move in four directions (North, East, South, West).
  2. The robot can only move 1-9 units in a given command. 
- 3. Robot's direction is not considered during calculation of the robot's distance from the starting point. For example if the robot is given a command "F3,R1,F2", the robot will be facing east after the robot has traversed. However, to go back to the start location, the robot has to turn to south direction to go back to the start location. This phenomenon is not incorporated in the distance calulation.
+ 3. Robot's direction is not considered during calculation of the robot's distance from the starting point. For example if the robot is given a command "F3,R1,F2", the robot will be facing East after the robot has traversed. However, to go back to the start location, the robot has to turn to south direction to go back to the start location. This phenomenon is not incorporated in the distance calulation.
 
 ### Testing
 For testing the CLI application a testing python script has been developed using [Pytest (6.2.2)](https://pytest.org/) package. To run this script you would require pytest and you can execute the test using the following command.
@@ -97,7 +101,7 @@ pytest test.py -s
 # Output would be like
 ================================== test session starts ==================================
 platform darwin -- Python 3.7.6, pytest-6.2.2, py-1.9.0, pluggy-0.13.1
-rootdir: /Users/parthtrehan/Desktop/Personal Works/Resume/Resume for companies/Pronto Coding Challenge
+rootdir: /Pronto Coding Challenge
 collected 1 item                                                                        
 
 test.py 
@@ -108,4 +112,25 @@ test.py
   test case 5 PASSED.
 
 =================================== 1 passed in 0.23s ===================================
+```
+To add more test cases, it can be done easily by just appending the [test_cases.json](https://github.com/ParthTrehan/Pronto-Coding-Challenge/blob/master/test_cases.json "test_cases.json") file with the following json. You can add the commands string and the output that is expected and just execute [test.py](https://github.com/ParthTrehan/Pronto-Coding-Challenge/blob/master/test.py "test.py") file.
+```json
+{
+	"id": "1",
+	"command": "F1,L1,F3,R1,B4",
+	"output": "6",
+	"error": "",
+	"returnCode": 1
+}
+```
+> To add a wrong command test cases, just change the command and set the returnCode to 0 as given below.
+
+```json
+{
+	"id": "2",
+	"command": "F1,R1,B2,L1,P3",
+	"output": "",
+	"error": "error: Invalid input commands",
+	"returnCode": 0
+}
 ```
