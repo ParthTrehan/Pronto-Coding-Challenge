@@ -3,10 +3,11 @@
 ## Table of Contents
 
 - [Description](#Description)
-- [Examples](#examples)
+- [CLI Examples](#examples)
 - [Files](#files)
 - [Installation](#installation)
 - [CLI Arguments](#cli_arguments)
+- [Build process](#build)
 
 ## Description
 
@@ -59,16 +60,27 @@ Time taken -  0.00022101402282714844 seconds
 python robot.py --commands "F1,R1,B2,L1,B3"
 ```
 
-## CLI Arguments
-
- -h, --help            show this help message and exit
-  --verbose, -v         display more information about the robot traversal
-  --commands COMMANDS, -c COMMANDS
-                        a string of comma-separated commands eg:
-                        "F1,R1,B2,L1,B3"
+## <a id="cli_arguments"></a>CLI Arguments
 
 | Argument                  | Default       | Description   |	
 | :------------------------ |:-------------:| :-------------|
 | -h, --help       	        |	-           | Shows the CLI help message and exits
 | -v  --verbose             | False         | Displays more information about the robot traversal
 | -c -–commands 	        | -	            | This is a required argument that 					takes a string of comma-separated commands. For example: "F1,R1,B2,L1,B3"
+
+## <a id="build"></a>Build Process
+
+### Extensibility and design decisions
+This project is build keeping simplicity and extensibility in mind. A robot class has been created to cover all the robot related tasks such as movment, rotation, distance calculation of the robot. Even though this is simple application, adding functionality is very simple in this application. For example:
+
+ 1. **Robot Intialization**: To initialize the robot starting position and direction, it is just required to set values when declaring the robot object. This class can be extended to include more robot's features such as actuators and sensors.
+ 2. **Path finiding algorithm**: calculate_distance() function calculates the robot's distance the start position and this is implemented by calculating manhattan distance. However, this function can also be extended to add more complex path finding algorithms, such as dijkstra and A*, which can include path costs.
+
+### Assumptions
+There are some assumptions in building the project:
+
+ 1. The robot can only move in four directions (North, East, South, West).
+ 2. The robot can only move 1-9 units in a given command. 
+ 3. Robot's direction is not considered during calculation of the robot's distance from the starting point. For example if the robot is given a command "F3,R1,F2", the robot will be facing east after the robot has traversed. However, to go back to the start location, the robot has to turn to south direction to go back to the start location. This phenomenon is not incorporated in the distance calulation.
+
+### Testing

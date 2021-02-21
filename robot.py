@@ -1,6 +1,7 @@
 import argparse
 import re
 import time
+import sys
 
 
 class Robot:
@@ -17,15 +18,15 @@ class Robot:
             self.start_x = start_x
             self.start_y = start_y
 
-    def traverse_path(self, commands):
+    def traverse(self, commands):
         commands_arr = commands.split(',')
         for command in commands_arr:
             if command[0] in ['F', 'B']:
-                self.move_robot(command)
+                self.move(command)
             else:
-                self.rotate_robot(command)
+                self.rotate(command)
 
-    def move_robot(self, command):
+    def move(self, command):
         if command[0] == 'F':
             if self.direction == 'N':
                 self.current_y += int(command[1])
@@ -45,7 +46,7 @@ class Robot:
             else:
                 self.current_x += int(command[1])
 
-    def rotate_robot(self, command):
+    def rotate(self, command):
         direction_arr = ['N', 'E', 'S', 'W']
         direction_units = int(command[1])
         if command[0] == 'L':
@@ -58,24 +59,35 @@ class Robot:
             self.direction = direction_arr[direction_index]
 
     def calculate_distance(self):
-        return (abs(self.current_x-self.start_x) + abs(self.current_y-self.start_y))
+        return (abs(self.current_x-self.start_x)
+                + abs(self.current_y-self.start_y))
 
 
 def get_parser():
     prog = """robot.py"""
 
-    description = """
-    description:
-    This is a simple program that takes a string
-    of commands as inputs and produces the robot's
-    distance from it's starting point.
+    description = """\
+                        DESCRIPTION:
+    This is a simple program that takes a string of commands 
+    as inputs in order to move a robot. These commands will 
+    be  in the format <command><number> and the program can 
+    take multiple commands for eg: "F1,R1,B2,L1,B3". The 
+    program traverses the robot and returns the robot's 
+    distance from its starting point. The robot can only 
+    move in 4 directions (North, East, South, West). For 
+    simplicity of the program, the robot can only move in 
+    1-9 units in a single command. Please refer README.md
+    for more information on available commands, arguments
+    and design process.
+
     """
     commands_help = """
     a string of comma-separated commands eg: "F1,R1,B2,L1,B3"
     """
     parser = argparse.ArgumentParser(
         prog=prog,
-        description=description)
+        description=description,
+        formatter_class=argparse.RawDescriptionHelpFormatter,)
     parser.add_argument('--verbose', '-v',
                         action='store_true', default=False,
                         help='display more information about the robot traversal')
@@ -86,11 +98,12 @@ def get_parser():
 
 def error(err):
     print('error: ' + err)
-    exit(0)
+    sys.exit(-1)
 
 
 def commands_validator(commands):
-    if not(re.match(pattern="^([F|B|R|L][1-9])(,[F|B|R|L][1-9])*$", string=commands)):
+    if not(re.match(pattern="^([F|B|R|L][1-9])(,[F|B|R|L][1-9])*$",
+                    string=commands)):
         error('Invalid input commands')
 
 
@@ -101,13 +114,16 @@ if __name__ == '__main__':
     start = time.time()
     robot = Robot(current_position=(0, 0), direction='N')
     commands_validator(args.commands)
-    robot.traverse_path(commands=args.commands)
+    robot.traverse(commands=args.commands)
     distance = robot.calculate_distance()
     end = time.time() - start
 
+    verbose_print('\n##################### Verbose ######################')
     verbose_print('Current direction - ', robot.direction)
     verbose_print('Current position  - ', (robot.current_x, robot.current_y))
     verbose_print('Distance to start - ', distance)
     verbose_print('Time taken - ', end, 'seconds')
+    verbose_print('#####################################################\n')
 
-    print(distance)
+    sys.stdout.write(str(distance))
+    sys.exit(1)
