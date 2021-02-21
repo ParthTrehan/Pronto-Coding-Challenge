@@ -53,7 +53,7 @@ class Robot:
                 self.current_x += int(command[1])
             elif self.direction == 'S':
                 self.current_y -= int(command[1])
-            else:
+            elif self.direction == 'W':
                 self.current_x -= int(command[1])
         else:
             if self.direction == 'N':
@@ -62,7 +62,7 @@ class Robot:
                 self.current_x -= int(command[1])
             elif self.direction == 'S':
                 self.current_y += int(command[1])
-            else:
+            elif self.direction == 'W':
                 self.current_x += int(command[1])
 
     def rotate(self, command):
@@ -144,6 +144,7 @@ def main():
     '''
     This is the main function that is used to parse the command from the
     CLI arguments and traverse the robot.
+    
     '''
     args = get_parser().parse_args()
     verbose_print = print if args.verbose else lambda *a, **k: None
@@ -164,6 +165,7 @@ def main():
 
     sys.stdout.write(str(distance))
     sys.exit(1)
+
 
 if __name__ == '__main__':
     main()
