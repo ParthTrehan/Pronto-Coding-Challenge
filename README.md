@@ -62,11 +62,11 @@ python robot.py --commands "F1,R1,B2,L1,B3"
 
 ## <a id="cli_arguments"></a>CLI Arguments
 
-| Argument                  | Default       | Description   |	
-| :------------------------ |:-------------:| :-------------|
-| -h, --help       	        |	-           | Shows the CLI help message and exits
-| -v  --verbose             | False         | Displays more information about the robot traversal
-| -c -–commands 	        | -	            | This is a required argument that 					takes a string of comma-separated commands. For example: "F1,R1,B2,L1,B3"
+| Argument                      | Default       | Description   |	
+| :---------------------------- |:-------------:| :-------------|
+| -h, --help       	            |	-           | Shows the CLI help message and exits
+| -v  --verbose                 | False         | Displays more information about the robot traversal
+| -c -–commands 	            | -	            | This is a required argument that takes a string of comma-separated commands. For example: "F1,R1,B2,L1,B3"
 
 ## <a id="build"></a>Build Process
 
