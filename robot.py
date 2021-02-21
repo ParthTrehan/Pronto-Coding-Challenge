@@ -97,8 +97,8 @@ def get_parser():
 
 
 def error(err):
-    print('error: ' + err)
-    sys.exit(-1)
+    sys.stderr.write('error: ' + err)
+    sys.exit(0)
 
 
 def commands_validator(commands):

@@ -1,0 +1,18 @@
+{
+    "testCases": [
+        {
+            "id": "1",
+            "command": "F1,L1,F3,R1,B4",
+            "output": "6",
+            "error": "",
+            "returnCode": 1
+        },
+        {
+            "id": "2",
+            "command": "F1,R1,B2,L1,P3",
+            "output": "",
+            "error": "error: Invalid input commands",
+            "returnCode": 0
+        }
+    ]
+}
